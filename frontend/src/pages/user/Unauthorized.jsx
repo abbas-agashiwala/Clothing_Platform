@@ -1,0 +1,1 @@
+export default function Unauthorized(){return <div className="container py-5 text-center"><h1>403</h1><p>You are not authorized to access this page.</p></div>}

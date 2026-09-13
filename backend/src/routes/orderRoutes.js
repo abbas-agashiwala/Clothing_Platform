@@ -1,0 +1,1 @@
+const r=require('express').Router(),c=require('../controllers/orderController'),a=require('../middleware/authMiddleware').protect;r.use(a);r.post('/',c.create);r.get('/',c.list);r.get('/:id',c.get);r.patch('/:id/cancel',c.cancel);module.exports=r;

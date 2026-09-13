@@ -1,0 +1,1 @@
+import{Link,useLocation}from'react-router-dom';export default function OrderSuccess(){const o=useLocation().state?.order;return <div className="container py-5 text-center"><h1>Order Successful 🎉</h1><p>{o?`Order ID: ${o._id}`:'Your order has been placed.'}</p><Link className="btn btn-dark" to="/profile/orders">View Orders</Link></div>}

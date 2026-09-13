@@ -1,0 +1,1 @@
+const m=require('mongoose');module.exports=m.model('AdminAction',new m.Schema({admin_id:{type:m.Schema.Types.ObjectId,ref:'User',required:true},action_type:String,entity_type:String,entity_id:String,timestamp:{type:Date,default:Date.now}},{timestamps:false}));

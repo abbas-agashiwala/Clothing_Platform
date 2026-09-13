@@ -1,0 +1,1 @@
+const m=require('mongoose');module.exports=m.model('Category',new m.Schema({category_name:{type:String,required:true,unique:true,trim:true},description:String,image:String,status:{type:String,enum:['ACTIVE','INACTIVE'],default:'ACTIVE'}},{timestamps:true}));

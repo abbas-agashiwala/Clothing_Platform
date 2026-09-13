@@ -1,0 +1,1 @@
+const A=require('../models/AdminAction');exports.log=(admin,action,type,id)=>A.create({admin_id:admin._id,action_type:action,entity_type:type,entity_id:String(id)});

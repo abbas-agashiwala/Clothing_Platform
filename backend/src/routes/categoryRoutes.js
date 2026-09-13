@@ -1,0 +1,1 @@
+const r=require('express').Router(),c=require('../controllers/categoryController'),a=require('../middleware/authMiddleware'),u=require('multer')({dest:'uploads/'});r.get('/',c.list);r.get('/:id',c.get);r.post('/',a.protect,a.admin,u.single('image'),c.create);r.put('/:id',a.protect,a.admin,u.single('image'),c.update);r.delete('/:id',a.protect,a.admin,c.remove);module.exports=r;

@@ -1,0 +1,1 @@
+const m=require('mongoose');const s=new m.Schema({user_id:{type:m.Schema.Types.ObjectId,ref:'User',unique:true,required:true},items:[{product_id:{type:m.Schema.Types.ObjectId,ref:'Product',required:true},addedAt:{type:Date,default:Date.now}}]},{timestamps:true});module.exports=m.model('Wishlist',s);
