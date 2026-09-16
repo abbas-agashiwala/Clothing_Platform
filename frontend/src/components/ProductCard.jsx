@@ -18,7 +18,7 @@ export default function ProductCard({ p }) {
         className="card-img-top product-img transition duration-500 hover:scale-[1.03]"
         src={
           p.product_images?.[0]
-            ? `${process.env.REACT_APP_SERVER_URL || "http://localhost:5000"}${p.product_images[0]}`
+            ? `${process.env.REACT_APP_SERVER_URL}${p.product_images[0]}`
             : "https://via.placeholder.com/600x700?text=Clothing"
         }
         alt={p.product_name}
