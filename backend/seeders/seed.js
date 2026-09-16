@@ -27,9 +27,9 @@ const cats = [
   ]);
   const u = await User.create({
     name: "Super Admin",
-    email: process.env.SEED_ADMIN_EMAIL || "admin@example.com",
+    email: process.env.SEED_ADMIN_EMAIL || "admin@gmail.com",
     password: await bcrypt.hash(
-      process.env.SEED_ADMIN_PASSWORD || "Admin@123",
+      process.env.SEED_ADMIN_PASSWORD || "admin@123",
       12,
     ),
     role: "ADMIN",

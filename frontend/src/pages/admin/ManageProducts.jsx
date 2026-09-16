@@ -270,31 +270,31 @@ export default function ManageProducts() {
     }
   };
 
-  const handleDelete = async (product) => {
-    const confirmed = window.confirm(
-      `Are you sure you want to deactivate "${product.product_name}"?`
+ const handleDelete = async (product) => {
+  const confirmed = window.confirm(
+    `Are you sure you want to permanently delete "${product.product_name}"?`
+  );
+
+  if (!confirmed) return;
+
+  try {
+    setError("");
+    setMessage("");
+
+    await api.delete(
+      `/admin/products/${product._id}`
     );
 
-    if (!confirmed) return;
+    setMessage("Product deleted successfully");
 
-    try {
-      setError("");
-      setMessage("");
-
-      await api.delete(
-        `/admin/products/${product._id}`
-      );
-
-      setMessage("Product deactivated successfully");
-
-      await loadProducts();
-    } catch (err) {
-      setError(
-        err.response?.data?.message ||
-          "Failed to deactivate product"
-      );
-    }
-  };
+    await loadProducts();
+  } catch (err) {
+    setError(
+      err.response?.data?.message ||
+      "Failed to delete product"
+    );
+  }
+};
 
   return (
     <div className="container-fluid">
@@ -607,7 +607,7 @@ export default function ManageProducts() {
                       <td>
 
                         <button
-                          className="btn btn-sm btn-primary me-1 mb-1"
+                          className="btn btn-sm btn-dark me-1 mb-1"
                           onClick={() =>
                             handleEdit(product)
                           }

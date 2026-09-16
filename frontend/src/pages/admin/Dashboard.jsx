@@ -17,6 +17,8 @@ import {
   Legend,
 } from "recharts";
 
+const CHART_COLORS = ["#e48a6d", "#67c7c7", "#f3c969", "#9b8af5", "#71c98a", "#ef7a9a"];
+
 export default function Dashboard() {
   const [d, setD] = useState({});
   const [stats, setStats] = useState({
@@ -52,8 +54,6 @@ export default function Dashboard() {
         },
       );
 
-      console.log("Dashboard:", dashboardRes.data);
-      console.log("Statistics:", statisticsRes.data);
     } catch (err) {
       console.error("Dashboard error:", err);
 
@@ -304,7 +304,7 @@ export default function Dashboard() {
 
                     <Legend />
 
-                    <Bar dataKey="count" name="Orders" />
+                    <Bar dataKey="count" name="Orders" fill="#e48a6d" radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               )}
@@ -344,7 +344,7 @@ export default function Dashboard() {
 
                     <Legend />
 
-                    <Bar dataKey="count" name="Products" />
+                    <Bar dataKey="count" name="Products" fill="#67c7c7" radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               )}
@@ -385,7 +385,7 @@ export default function Dashboard() {
 
                     <Legend />
 
-                    <Bar dataKey="sold" name="Units Sold" />
+                    <Bar dataKey="sold" name="Units Sold" fill="#f3c969" radius={[0, 6, 6, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               )}
@@ -419,7 +419,7 @@ export default function Dashboard() {
                       label
                     >
                       {statusData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} />
+                        <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                       ))}
                     </Pie>
 

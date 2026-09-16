@@ -1,15 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 export default function ProductCard({ p }) {
-  const { add } = useCart(),
-    w = useWishlist();
+  if (!p) return null;
+  const { add } = useCart();
+  const { add: addWishlist } = useWishlist();
+  const nav = useNavigate();
   const price = p.discount_price ?? p.price;
   return (
-    <div className="card h-100 shadow-sm">
+    <div
+      className="card h-100 overflow-hidden border-0 shadow-soft transition duration-300 hover:-translate-y-1"
+      style={{ cursor: "pointer" }}
+      onClick={() => nav(`/product/${p._id}`)}
+    >
       <img
-        className="card-img-top product-img"
+        className="card-img-top product-img transition duration-500 hover:scale-[1.03]"
         src={
           p.product_images?.[0]
             ? `${process.env.REACT_APP_SERVER_URL || "http://localhost:5000"}${p.product_images[0]}`
@@ -17,14 +23,23 @@ export default function ProductCard({ p }) {
         }
         alt={p.product_name}
       />
-      <div className="card-body">
+      <div className="card-body p-3 p-md-4">
         <div className="d-flex justify-content-between">
-          <small>{p.brand}</small>
-          <button className="btn btn-sm btn-light" onClick={() => w.add(p._id)}>
+          <small className="font-semibold uppercase tracking-wider text-secondary">
+            {p.brand}
+          </small>
+          <button
+            className="btn btn-sm btn-light rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              addWishlist(p._id);
+            }}
+            aria-label={`Add ${p.product_name} to wishlist`}
+          >
             <FaHeart />
           </button>
         </div>
-        <h5 className="card-title">{p.product_name}</h5>
+        <h5 className="card-title mt-2 fw-bold">{p.product_name}</h5>
         <span className="fw-bold">₹{price}</span>
         {p.discount_price && (
           <>
@@ -35,22 +50,21 @@ export default function ProductCard({ p }) {
           </>
         )}
         <div className="d-flex gap-2 mt-3">
-          <Link
-            className="btn btn-outline-dark flex-fill"
-            to={`/product/${p._id}`}
-          >
+          <Link className="btn btn-dark flex-fill" to={`/product/${p._id}`}>
             View
           </Link>
           <button
             className="btn btn-dark"
-            onClick={() =>
+            onClick={(e) => {
+              e.stopPropagation();
+
               add({
                 product_id: p._id,
                 quantity: 1,
                 size: p.sizes?.[0],
                 color: p.colors?.[0],
-              })
-            }
+              });
+            }}
           >
             <FaShoppingCart />
           </button>

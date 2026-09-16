@@ -90,11 +90,7 @@ export default function Checkout() {
         payment_method: method,
       });
 
-      console.log("Payment Create Response:", r.data);
-
-      console.log("Payment Create Response:", r.data);
-
-      const paymentData = r.data.message;
+      const paymentData = r.data.data;
 
       const razorpayOrderId = paymentData.razorpayOrderId;
       const amount = paymentData.amount;
@@ -102,12 +98,6 @@ export default function Checkout() {
       const paymentId = paymentData.paymentId;
       const razorpayKey =
         paymentData.keyId || process.env.REACT_APP_RAZORPAY_KEY_ID;
-
-      console.log("Razorpay Order ID:", razorpayOrderId);
-      console.log("Amount:", amount);
-      console.log("Currency:", currency);
-      console.log("Payment ID:", paymentId);
-      console.log("Razorpay Key:", razorpayKey);
 
       if (!razorpayOrderId || !paymentId || !amount) {
         console.error("Invalid Razorpay payment data:", paymentData);
@@ -143,8 +133,6 @@ export default function Checkout() {
               address_id: id,
             });
 
-            console.log("Payment verification:", verifyResponse.data);
-
             alert("Payment successful!");
 
             nav("/profile/orders");
@@ -167,10 +155,6 @@ export default function Checkout() {
           color: "#000000",
         },
       };
-      console.log("Creating Razorpay instance...");
-console.log("Razorpay available:", !!window.Razorpay);
-console.log("Razorpay options:", options);
-
       const razorpay = new window.Razorpay(options);
 
       razorpay.on("payment.failed", function (response) {
@@ -179,7 +163,6 @@ console.log("Razorpay options:", options);
         alert(response.error?.description || "Payment failed");
       });
 
-      console.log("Opening Razorpay...");
 razorpay.open();
     } catch (e) {
       console.error("Checkout error:", e);

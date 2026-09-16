@@ -6,7 +6,7 @@ export default function ManageAdmins() {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    password: "Admin@123",
+    password: "admin@123",
   });
 
   const [editingAdmin, setEditingAdmin] = useState(null);
@@ -414,7 +414,7 @@ export default function ManageAdmins() {
                       <td>
                         <div className="d-flex gap-2 flex-wrap">
                           <button
-                            className="btn btn-sm btn-primary"
+                            className="btn btn-sm btn-dark"
                             onClick={() => handleEdit(admin)}
                           >
                             Edit
@@ -448,7 +448,7 @@ export default function ManageAdmins() {
 
                           <button
     className="btn btn-sm btn-danger"
-    onClick={() => handleDelete(admin._id)}
+    onClick={() => handleDelete(admin)}
   >
     Remove
   </button>

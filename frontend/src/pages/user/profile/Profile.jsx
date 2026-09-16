@@ -14,15 +14,15 @@ export default function Profile() {
             Edit Profile
           </Link>
 
-          <Link to="/profile/change-password" className="btn btn-outline-dark">
+          <Link to="/profile/change-password" className="btn btn-dark">
             Change Password
           </Link>
         </div>
       </div>
-      <div className="mt-4 d-flex gap-2">
-        <Link to="/profile/orders">Orders</Link>
-        <Link to="/profile/addresses">Addresses</Link>
-        <Link to="/wishlist">Wishlist</Link>
+      <div className="mt-4 d-flex flex-wrap gap-2">
+        <Link to="/profile/orders" className="btn btn-dark">Orders</Link>
+        <Link to="/profile/addresses" className="btn btn-dark">Addresses</Link>
+        <Link to="/wishlist" className="btn btn-dark">Wishlist</Link>
       </div>
     </div>
   );

@@ -86,12 +86,11 @@ exports.create = async (req, res, next) => {
   try {
     const method = req.body.payment_method;
     if (!["CREDIT_CARD", "DEBIT_CARD", "UPI", "NET_BANKING"].includes(method))
-      return fail(res, "Invalid online payment method", null, 400);
+      return fail(res, "Invalid online payment method", 400);
     if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET)
       return fail(
         res,
         "Razorpay is not configured. Configure credentials in backend .env.",
-        null,
         503,
       );
     const Razorpay = require("razorpay");
@@ -100,12 +99,12 @@ exports.create = async (req, res, next) => {
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
     const cart = await Cart.findOne({ user_id: req.user._id });
-    if (!cart?.items.length) return fail(res, "Cart is empty", null, 400);
+    if (!cart?.items.length) return fail(res, "Cart is empty", 400);
     let subtotal = 0;
     for (const ci of cart.items) {
       const p = await Product.findById(ci.product_id);
       if (!p || p.stock_quantity < ci.quantity)
-        return fail(res, "Insufficient stock", null, 409);
+        return fail(res, "Insufficient stock", 409);
       subtotal += (p.discount_price ?? p.price) * ci.quantity;
     }
     const amount = subtotal + (subtotal >= 1000 ? 0 : 80);
@@ -121,14 +120,14 @@ exports.create = async (req, res, next) => {
       payment_status: "PENDING",
       gateway_order_id: ro.id,
     });
-    ok(res, "Payment gateway order created", {
+    ok(res, {
       paymentId: payment._id,
       razorpayOrderId: ro.id,
       amount: ro.amount,
       currency: ro.currency,
       keyId: process.env.RAZORPAY_KEY_ID,
       addressId: req.body.address_id,
-    });
+    }, "Payment gateway order created");
   } catch (e) {
     next(e);
   }
@@ -200,8 +199,8 @@ exports.get = async (req, res, next) => {
       _id: req.params.id,
       user_id: req.user._id,
     });
-    if (!p) return fail(res, "Payment not found", null, 404);
-    ok(res, "Payment fetched", p);
+    if (!p) return fail(res, "Payment not found", 404);
+    ok(res, p, "Payment fetched");
   } catch (e) {
     next(e);
   }

@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const AdminProfile = require("../models/AdminProfile");
 exports.protect = async (req, res, next) => {
   try {
     const h = req.headers.authorization || "";
@@ -18,9 +19,17 @@ exports.protect = async (req, res, next) => {
     next(Object.assign(new Error("Invalid or expired token"), { status: 401 }));
   }
 };
-exports.admin = (req, res, next) =>
-  req.user?.role === "ADMIN"
-    ? next()
-    : res
-        .status(403)
-        .json({ success: false, message: "Admin access required" });
+exports.admin = async (req, res, next) => {
+  try {
+    if (req.user?.role !== "ADMIN") {
+      return res.status(403).json({ success: false, message: "Admin access required" });
+    }
+    const profile = await AdminProfile.findOne({ user_id: req.user._id });
+    if (profile?.status === "INACTIVE") {
+      return res.status(403).json({ success: false, message: "Admin account is inactive" });
+    }
+    next();
+  } catch (e) {
+    next(e);
+  }
+};

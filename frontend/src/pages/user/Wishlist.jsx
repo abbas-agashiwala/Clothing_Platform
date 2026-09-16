@@ -1,1 +1,31 @@
-import{useWishlist}from'../../context/WishlistContext';import ProductCard from'../../components/ProductCard';export default function Wishlist(){const{wishlist,remove}=useWishlist();return <div className="container py-5"><h1>Wishlist</h1>{!wishlist.items?.length?<p>Your wishlist is empty</p>:<div className="row g-4">{wishlist.items.map(i=><div className="col-6 col-md-3" key={i.product_id?._id}><ProductCard p={i.product_id}/><button className="btn btn-outline-danger w-100 mt-2" onClick={()=>remove(i.product_id._id)}>Remove</button></div>)}</div>}</div>}
+import { useWishlist } from "../../context/WishlistContext";
+import ProductCard from "../../components/ProductCard";
+export default function Wishlist() {
+  const { wishlist, remove } = useWishlist();
+  return (
+  <div className="wishlist-page">
+    <div className="container-fluid">
+      <h1 className="wishlist-title">Wishlist</h1>
+
+      <div className="wishlist-grid">
+        {wishlist.items
+          .filter((i) => i.product_id)
+          .map((i) => (
+            <div className="wishlist-item" key={i.product_id._id}>
+              
+              <ProductCard p={i.product_id} />
+
+              <button
+                className="wishlist-remove"
+                onClick={() => remove(i.product_id._id)}
+              >
+                Remove
+              </button>
+
+            </div>
+          ))}
+      </div>
+    </div>
+  </div>
+);
+}

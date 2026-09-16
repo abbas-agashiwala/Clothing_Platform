@@ -21,8 +21,6 @@ export default function ProductDetails() {
 
       const r = await api.get(`/products/${id}`);
 
-      console.log("PRODUCT DETAILS RESPONSE:", r.data);
-
       if (!mounted) return;
 
       if (r.data?.success && r.data?.data) {
@@ -38,10 +36,6 @@ export default function ProductDetails() {
         });
       }
     } catch (err) {
-  console.error("PRODUCT ERROR:", err);
-  console.error("STATUS:", err.response?.status);
-  console.error("DATA:", err.response?.data);
-
   if (!mounted) return;
 
   setP({
@@ -142,7 +136,7 @@ if (p.notFound) {
           <select
             className="form-select mb-3"
             value={size}
-            onChange={(e) => setS(e.target.value)}
+            onChange={(e) => setSz(e.target.value)}
           >
             {p.sizes?.map((x) => (
               <option key={x}>{x}</option>
@@ -152,7 +146,7 @@ if (p.notFound) {
           <select
             className="form-select mb-3"
             value={color}
-            onChange={(e) => setC(e.target.value)}
+            onChange={(e) => setColor(e.target.value)}
           >
             {p.colors?.map((x) => (
               <option key={x}>{x}</option>
@@ -176,7 +170,7 @@ if (p.notFound) {
           >
             {p.stock_quantity <= 0 ? "Out of Stock" : "Add to Cart"}
           </button>
-          <button className="btn btn-outline-dark" onClick={() => w.add(p._id)}>
+          <button className="btn btn-dark" onClick={() => w.add(p._id)}>
             Wishlist
           </button>
         </div>
@@ -184,3 +178,5 @@ if (p.notFound) {
     </div>
   );
 }
+
+

@@ -1,1 +1,294 @@
-body{background:#f8f9fa;color:#171717}.hero{min-height:55vh;display:flex;align-items:center;background:linear-gradient(90deg,#111,#444);color:#fff}.hero h1{font-size:clamp(3rem,8vw,6rem);font-weight:800}.product-img{height:330px;object-fit:cover}.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#eee}.auth-card{width:min(420px,92vw)}.admin-side{width:240px;flex-shrink:0}@media(max-width:768px){.admin-side{width:190px}.product-img{height:220px}}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { background: #242424; color: #fff; }
+
+.card,
+.modal-content,
+.list-group-item {
+  background-color: #303030;
+  color: #fff;
+  border-color: #464646;
+}
+
+.form-control,
+.form-select {
+  background-color: #383838;
+  color: #fff;
+  border-color: #555;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: #3d3d3d;
+  color: #fff;
+  border-color: #e48a6d;
+  box-shadow: 0 0 0 .25rem rgba(228, 138, 109, .2);
+}
+
+.form-control::placeholder { color: #b9b9b9; }
+.form-select option { background: #303030; color: #fff; }
+.table { --bs-table-bg: transparent; --bs-table-color: #fff; --bs-table-border-color: #4a4a4a; }
+.text-muted, .text-secondary { color: #c7c7c7 !important; }
+.hero {
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(115deg, #171717 0%, #2d2421 55%, #8b4432 150%);
+  color: #fff;
+}
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+}
+.product-img {
+  height: 330px;
+  object-fit: cover;
+}
+.auth-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top right, #633d34, transparent 42%), #242424;
+}
+.auth-card {
+  width: min(420px, 92vw);
+}
+.admin-side {
+  width: 240px;
+  flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .admin-side {
+    width: 190px;
+  }
+  .product-img {
+    height: 220px;
+  }
+}
+
+/* =========================
+   WISHLIST PAGE
+========================= */
+
+.wishlist-page {
+  min-height: calc(100vh - 70px);
+  padding: 35px 40px 60px;
+  background: #222;
+  overflow-x: hidden;
+}
+
+.wishlist-title {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 25px;
+}
+
+/* 4 products in one row */
+.wishlist-grid {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+}
+
+/* Product wrapper */
+.wishlist-item {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Product card */
+.wishlist-item .card {
+  width: 100% !important;
+  margin: 0 !important;
+  height: 520px !important;
+  overflow: hidden;
+}
+
+/* Product image */
+.wishlist-item .card img {
+  width: 100% !important;
+  height: 280px !important;
+  object-fit: cover;
+  display: block;
+}
+
+/* Remove button */
+.wishlist-remove {
+  width: 100%;
+  height: 42px;
+  margin-top: 10px;
+
+  background: transparent;
+  border: 1px solid #dc3545;
+  border-radius: 6px;
+
+  color: #dc3545;
+  font-size: 15px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.wishlist-remove:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+
+/* =========================================
+   PRODUCT DETAILS PAGE
+   Uses existing JSX class names
+========================================= */
+
+/* Main product details container */
+.container.py-5:has(.row.g-5) {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 45px !important;
+  padding-bottom: 60px !important;
+}
+
+/* Product row */
+.container.py-5 .row.g-5 {
+  display: flex;
+  align-items: flex-start;
+  gap: 50px !important;
+}
+
+/* =========================================
+   LEFT SIDE - PRODUCT IMAGE
+========================================= */
+
+.container.py-5 .row.g-5 > .col-md-6:first-child {
+  flex: 0 0 450px;
+  max-width: 450px;
+}
+
+/* Single product image */
+.container.py-5 .row.g-5 > .col-md-6:first-child img.img-fluid.rounded {
+  width: 600px !important;
+  height: 600px !important;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px !important;
+}
+
+/* =========================================
+   RIGHT SIDE - PRODUCT INFORMATION
+========================================= */
+
+.container.py-5 .row.g-5 > .col-md-6:last-child {
+  flex: 1;
+  max-width: none;
+}
+
+/* Brand */
+.container.py-5 .row.g-5 > .col-md-6:last-child small {
+  font-size: 15px;
+  color: #ddd;
+}
+
+/* Product name */
+.container.py-5 .row.g-5 > .col-md-6:last-child h2 {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 700;
+  margin: 8px 0 12px;
+  color: #fff;
+}
+
+/* Description */
+.container.py-5 .row.g-5 > .col-md-6:last-child p {
+  font-size: 17px;
+  line-height: 1.5;
+  color: #eee;
+}
+
+/* =========================================
+   PRICE
+========================================= */
+
+.container.py-5 .row.g-5 > .col-md-6:last-child h3 {
+  font-size: 28px;
+  margin: 20px 0;
+  color: #fff;
+}
+
+/* =========================================
+   STOCK
+========================================= */
+
+.container.py-5 .row.g-5 > .col-md-6:last-child > p {
+  margin-bottom: 18px;
+}
+
+/* =========================================
+   SIZE / COLOR / QUANTITY
+========================================= */
+
+.container.py-5 .form-select.mb-3,
+.container.py-5 .form-control.mb-3 {
+  width: 100%;
+  height: 42px;
+
+  background-color: #333;
+  color: #fff;
+
+  border: 1px solid #555;
+  border-radius: 6px;
+
+  padding: 8px 12px;
+}
+
+.container.py-5 .form-select.mb-3:focus,
+.container.py-5 .form-control.mb-3:focus {
+  background-color: #333;
+  color: #fff;
+  border-color: #777;
+  box-shadow: none;
+}
+
+/* Labels */
+.container.py-5 label {
+  color: #fff;
+  font-size: 17px;
+  margin-bottom: 6px;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.container.py-5 .btn.btn-dark.me-2 {
+  height: 45px;
+  padding: 8px 20px;
+
+  background: #182027;
+  border: 1px solid #333;
+
+  color: #fff;
+  border-radius: 6px;
+
+  font-size: 16px;
+}
+
+.container.py-5 .btn.btn-dark.me-2:hover {
+  background: #29343b;
+}
+
+/* =========================================
+   CART MESSAGE
+========================================= */
+
+.container.py-5 .alert {
+  margin-top: 15px;
+}

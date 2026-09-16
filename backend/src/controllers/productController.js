@@ -124,23 +124,36 @@ exports.update = async (req, res, next) => {
     next(e);
   }
 };
+
 exports.remove = async (req, res, next) => {
   try {
-    const d = await P.findByIdAndUpdate(
-      req.params.id,
-      { status: "INACTIVE" },
-      { new: true },
-    );
-    if (!d)
+    const d = await P.findByIdAndDelete(req.params.id);
+
+    if (!d) {
       return res
         .status(404)
-        .json({ success: false, message: "Product not found" });
-    await audit.log(req.user, "DELETE_PRODUCT", "Product", d._id);
-    res.json({ success: true, message: "Product deleted" });
+        .json({
+          success: false,
+          message: "Product not found"
+        });
+    }
+
+    await audit.log(
+      req.user,
+      "DELETE_PRODUCT",
+      "Product",
+      d._id
+    );
+
+    res.json({
+      success: true,
+      message: "Product deleted successfully"
+    });
   } catch (e) {
     next(e);
   }
 };
+
 exports.stock = async (req, res, next) => {
   try {
     const d = await P.findByIdAndUpdate(

@@ -405,7 +405,7 @@ export default function ManageCategories() {
 
                         {/* Edit */}
                         <button
-                          className="btn btn-sm btn-primary me-2"
+                          className="btn btn-sm btn-dark me-2"
                           onClick={() =>
                             handleEdit(category)
                           }

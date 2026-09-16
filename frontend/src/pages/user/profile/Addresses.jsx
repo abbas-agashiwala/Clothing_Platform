@@ -47,7 +47,7 @@ export default function Addresses() {
           </p>
           <div className="d-flex gap-2">
             <button
-              className="btn btn-sm btn-outline-dark"
+              className="btn btn-sm btn-outline-dark btn-edit-no-hover"
               onClick={() => {
                 setEditingId(a._id);
                 setF({

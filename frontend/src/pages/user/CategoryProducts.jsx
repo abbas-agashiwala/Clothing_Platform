@@ -36,28 +36,14 @@ export default function CategoryProducts() {
     api
       .get(`/products/category/${id}?${params.toString()}`)
       .then((r) => {
-        console.log("CATEGORY PAGINATION:", r.data.pagination);
         setD(r.data.data);
-        setTotalPages(r.data.totalPages);
+        setTotalPages(r.data.pagination?.totalPages || 1);
       });
   }, [id, q, minPrice, maxPrice, sort, page]);
 
   return (
     <div className="container py-5">
-      <div className="d-flex justify-content-between align-items-center flex-wrap gap-2">
-        <h1>Products</h1>
-
-        <input
-          className="form-control"
-          style={{ width: "300px" }}
-          placeholder="Search"
-          value={q}
-          onChange={(e) => {
-  setQ(e.target.value);
-  setPage(1);
-}}
-        />
-      </div>
+    
 
       <div className="row g-2 mt-3">
         <div className="col-md-3">
@@ -126,7 +112,7 @@ export default function CategoryProducts() {
 <div className="d-flex justify-content-center align-items-center gap-2 my-4">
 
   <button
-    className="btn btn-outline-dark"
+    className="btn btn-dark"
     disabled={page <= 1}
     onClick={() => setPage(page - 1)}
   >
@@ -143,7 +129,7 @@ export default function CategoryProducts() {
       className={`btn ${
         page === index + 1
           ? "btn-dark"
-          : "btn-outline-dark"
+          : "btn-dark"
       }`}
       onClick={() => setPage(index + 1)}
     >
@@ -152,7 +138,7 @@ export default function CategoryProducts() {
   ))}
 
   <button
-    className="btn btn-outline-dark"
+    className="btn btn-dark"
     disabled={page >= Number(totalPages)}
     onClick={() => setPage(page + 1)}
   >
